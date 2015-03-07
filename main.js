@@ -13,7 +13,7 @@ let processor = {
   doLoad: function() {
     this.video = document.getElementById("video");
     this.c1 = document.getElementById("c1");
-    this.ctz1 = this.c1.getContext("2d");
+    this.ctx1 = this.c1.getContext("2d");
     this.c2 = document.getElementById("c2");
     this.ctx2 = this.c2.getContext("2d");
     let self = this;
@@ -26,7 +26,7 @@ let processor = {
 
   computeFrame: function() {
     this.ctx1.drawImage(this.video, 0, 0, this.width, this.height);
-    let frame = this.ctsx1.getImageData(0, 0, this.width, this.height);
+    let frame = this.ctx1.getImageData(0, 0, this.width, this.height);
     let l = frame.data.length / 4;
 
     for (let i = 0; i < l; i++) {
