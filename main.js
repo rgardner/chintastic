@@ -5,9 +5,9 @@ let processor = {
     }
     this.computeFrame();
     let self = this;
-    setTimeout(function() {
-      self.timerCallback();
-    }, 0);
+    setTimeout(function () {
+        self.timerCallback();
+      }, 0);
   },
 
   doLoad: function() {
@@ -18,10 +18,10 @@ let processor = {
     this.ctx2 = this.c2.getContext("2d");
     let self = this;
     this.video.addEventListener("play", function() {
-      self.width = self.video.videoWidth / 2;
-      self.height = self.video.videoHeight / 2;
-      self.timerCallback();
-    }, false);
+        self.width = self.video.videoWidth / 2;
+        self.height = self.video.videoHeight / 2;
+        self.timerCallback();
+      }, false);
   },
 
   computeFrame: function() {
@@ -33,11 +33,10 @@ let processor = {
       let r = frame.data[i * 4 + 0];
       let g = frame.data[i * 4 + 1];
       let b = frame.data[i * 4 + 2];
-      if (g > 100 && r > 100 && b < 43) {
+      if (g > 100 && r > 100 && b < 43)
         frame.data[i * 4 + 3] = 0;
-      }
-      this.ctx2.putImageData(frame, 0, 0);
-      return;
     }
+    this.ctx2.putImageData(frame, 0, 0);
+    return;
   }
 };
