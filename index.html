@@ -5,6 +5,11 @@
     <meta charset="utf-8">
     <meta http-equiv="X-UA-Compatible" content="IE=edge">
     <script>
+        // Timer global variables.
+        var count;
+        var timer;
+
+        // Video global variables.
         var oggSupported = false;
         var webmSupported = false;
         var mp4Supported = false;
@@ -26,15 +31,35 @@
         }
 
 
-        function Play() {
-            document.getElementById("videodata").play();
-            document.getElementById("videoBackgrounddata").play();
-            var boothStartBtn = document.getElementById("boothStart");
-            if (boothStart.parentNode) {
-              boothStart.parentNode.removeChild(boothStart);
-            }
-            isPlaying = true;
-            draw();
+        function handleTimer() {
+          if (count === 0) {
+            clearInterval(timer);
+            document.getElementById("countdown").innerHTML = "Recording";
+            play();
+          } else {
+            var text = "Starting in " + count + "...";
+            document.getElementById("countdown").innerHTML = text;
+            count--;
+          }
+        }
+
+        function Start() {
+          // Remove start button.
+          var boothStartBtn = document.getElementById("boothStart");
+          if (boothStart.parentNode) {
+            boothStart.parentNode.removeChild(boothStart);
+          }
+
+          // Start timer.
+          count = 3;
+          timer = setInterval(function() { handleTimer(count); }, 1000);
+        }
+
+        function play() {
+          document.getElementById("videodata").play();
+          document.getElementById("videoBackgrounddata").play();
+          isPlaying = true;
+          draw();
         }
 
         function DrawVideoOnCanvas() {
@@ -222,6 +247,7 @@
     <li>Click the Start button</li>
     <li>Enjoy!</li>
   </ol>
+  <p id="countdown">Waiting for you to start...</p>
   <div id="wrapper" class="clearfix">
     <div id="output">
         <p>Output</p>
@@ -264,7 +290,7 @@
     </div>
     <div id="videocontrols">
       <p>Video controls</p>
-      <button id="boothStart" onclick="Play();">Start</button>
+      <button id="boothStart" onclick="Start();">Start</button>
     </div>
   </div>
 </body>
