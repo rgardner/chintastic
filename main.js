@@ -27,32 +27,35 @@ function onMediaInit(stream) {
     video.controls = "true";
     videosContainer.appendChild(video);
     videosContainer.appendChild(document.createElement('hr'));
+    video.play();
     mediaRecorder = new MediaStreamRecorder(stream);
-                mediaRecorder.mimeType = 'video/webm'; // this line is mandatory
-                mediaRecorder.videoWidth  = 320;
-                mediaRecorder.videoHeight = 240;
-                mediaRecorder.ondataavailable = function(blob) {
-                    var a = document.createElement('a');
-                    a.target = '_blank';
-                    a.innerHTML = 'Open Recorded Video No. ' + (index++) + ' (Size: ' + bytesToSize(blob.size) + ') Time Length: ' + getTimeLength(timeInterval);
-                    a.href = URL.createObjectURL(blob);
-                    videosContainer.appendChild(a);
-                    videosContainer.appendChild(document.createElement('hr'));
-                };
-                console.log(mediaRecorder);
-                
-                var timeInterval = 10 * 1000; //10 secs in milliseconds
-                timeInterval = parseInt(timeInterval);
-                // get blob after specific time interval
-                setTimeout(function() { 
-                  video.pause();
-                  mediaRecorder.stop();
-                }, 10 * 1000);
-                mediaRecorder.start(timeInterval);
-                console.log(videosContainer[0]);
-              };
+    mediaRecorder.mimeType = 'video/webm'; // this line is mandatory
+    mediaRecorder.videoWidth  = 320;
+    mediaRecorder.videoHeight = 240;
+    mediaRecorder.ondataavailable = function(blob) {
+      var a = document.createElement('a');
+      a.target = '_blank';
+      a.innerHTML = 'Open Recorded Video No. ' + (index++) + ' (Size: ' + bytesToSize(blob.size) + ') Time Length: ' + getTimeLength(timeInterval);
+      a.href = URL.createObjectURL(blob);
+      //document.getElementById("videoBackgrounddata").src = a.href;
+      //document.getElementById("backgroundvideo").show();
+      videosContainer.appendChild(a);
+      videosContainer.appendChild(document.createElement('hr'));
+    };
+    console.log(mediaRecorder);
 
-            }
+    var timeInterval = 10 * 1000; //10 secs in milliseconds
+    timeInterval = parseInt(timeInterval);
+    // get blob after specific time interval
+    setTimeout(function() {
+      video.pause();
+      mediaRecorder.stop();
+    }, 10 * 1000);
+    mediaRecorder.start(timeInterval);
+    console.log(videosContainer[0]);
+};
+
+}
 
 //
 function onMediaError(e) {
