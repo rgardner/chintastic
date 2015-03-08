@@ -29,7 +29,7 @@ function startRecording() {
   };
   console.log(mediaRecorder);
 
-  var timeInterval = 10 * 1000;
+  var timeInterval = 600 * 1000;
   timeInterval = parseInt(timeInterval);
   // get blob after specific time interval
   setTimeout(function() {
