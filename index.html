@@ -1,0 +1,344 @@
+
+<!DOCTYPE html>
+
+<html>
+<head>
+    <title>Metia Labs HTML 5 Chroma Key</title>
+    <meta charset="utf-8">        
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <script>
+        var oggSupported = false;
+        var webmSupported = false;
+        var mp4Supported = false;
+        var isPlaying = false;
+        var videoExt = "";
+        var isBackgroundVideo = true;
+
+        function draw() {
+            if (window.requestAnimationFrame) window.requestAnimationFrame(draw);
+            // IE implementation
+            else if (window.msRequestAnimationFrame) window.msRequestAnimationFrame(draw);
+            // Firefox implementation
+            else if (window.mozRequestAnimationFrame) window.mozRequestAnimationFrame(draw);
+            // Chrome implementation
+            else if (window.webkitRequestAnimationFrame) window.webkitRequestAnimationFrame(draw);
+            // Other browsers that do not yet support feature
+            else setTimeout(draw, 16.7);
+            DrawVideoOnCanvas();
+        }
+
+
+        function Play() {
+            if (!isPlaying) {
+                document.getElementById("videodata").play();
+                document.getElementById("videoBackgrounddata").play();
+                document.getElementById("PlayPause").value = "Pause";
+                isPlaying = true;               
+            }
+            else {
+                document.getElementById("videodata").pause();
+                document.getElementById("videoBackgrounddata").pause();
+                document.getElementById("PlayPause").value = "Play";
+                isPlaying = false;                
+            }
+            draw();
+        }
+
+        function DrawVideoOnCanvas() {
+            var object = document.getElementById("videodata")
+
+            var backgroundObject;
+            if (isBackgroundVideo) {
+                backgroundObject = document.getElementById("videoBackgrounddata");
+            }
+            else {
+                backgroundObject = document.getElementById("imageBackgrounddata");
+            }
+            var width = object.width;
+            var height = object.height;
+            var canvas = document.getElementById("videoscreen");
+            canvas.setAttribute('width', width);
+            canvas.setAttribute('height', height);
+            if (canvas.getContext) {
+                var context = canvas.getContext('2d');
+                context.drawImage(backgroundObject, 0, 0, width, height);
+                var imgBackgroundData = context.getImageData(0, 0, width, height);
+                context.drawImage(object, 0, 0, width, height);
+                imgDataNormal = context.getImageData(0, 0, width, height);
+                var imgData = context.createImageData(width, height);
+
+                for (i = 0; i < imgData.width * imgData.height * 4; i += 4) {
+                    var r = imgDataNormal.data[i + 0];
+                    var g = imgDataNormal.data[i + 1];
+                    var b = imgDataNormal.data[i + 2];
+                    var a = imgDataNormal.data[i + 3];
+                    // compare rgb levels for green and set alphachannel to 0;
+                    selectedR = 50;
+                    selectedG = 150
+                    selectedB = 150;
+                    if (r <= selectedR && b <= selectedB && g >= selectedG) {
+                        a = 0;
+                    }
+                    if (a != 0) {
+                        imgData.data[i + 0] = r;
+                        imgData.data[i + 1] = g;
+                        imgData.data[i + 2] = b;
+                        imgData.data[i + 3] = a;
+                    }
+                }
+
+                for (var y = 0; y < imgData.height; y++) {
+                    for (var x = 0; x < imgData.width; x++) {
+                        var r = imgData.data[((imgData.width * y) + x) * 4];
+                        var g = imgData.data[((imgData.width * y) + x) * 4 + 1];
+                        var b = imgData.data[((imgData.width * y) + x) * 4 + 2];
+                        var a = imgData.data[((imgData.width * y) + x) * 4 + 3];
+                        if (imgData.data[((imgData.width * y) + x) * 4 + 3] != 0) {
+                            offsetYup = y - 1;
+                            offsetYdown = y + 1;
+                            offsetXleft = x - 1;
+                            offsetxRight = x + 1;
+                            var change=false;
+                            if(offsetYup>0)
+                            {
+                                if(imgData.data[((imgData.width * (y-1) ) + (x)) * 4 + 3]==0)
+                                {
+                                    change=true;
+                                }
+                            }
+                            if (offsetYdown < imgData.height)
+                            {
+                                if (imgData.data[((imgData.width * (y + 1)) + (x)) * 4 + 3] == 0) {
+                                    change = true;
+                                }
+                            }
+                            if (offsetXleft > -1) {
+                                if (imgData.data[((imgData.width * y) + (x -1)) * 4 + 3] == 0) {
+                                    change = true;
+                                }
+                            }
+                            if (offsetxRight < imgData.width) {
+                                if (imgData.data[((imgData.width * y) + (x + 1)) * 4 + 3] == 0) {
+                                    change = true;
+                                }
+                            }
+                            if (change) {
+                                var gray = (imgData.data[((imgData.width * y) + x) * 4 + 0] * .393) + (imgData.data[((imgData.width * y) + x) * 4 + 1] * .769) + (imgData.data[((imgData.width * y) + x) * 4 + 2] * .189);                                
+                                imgData.data[((imgData.width * y) + x) * 4] = (gray * 0.2) + (imgBackgroundData.data[((imgData.width * y) + x) * 4] *0.9);
+                                imgData.data[((imgData.width * y) + x) * 4 + 1] = (gray * 0.2) + (imgBackgroundData.data[((imgData.width * y) + x) * 4 + 1]*0.9);
+                                imgData.data[((imgData.width * y) + x) * 4 + 2] = (gray * 0.2) + (imgBackgroundData.data[((imgData.width * y) + x) * 4 + 2] * 0.9);
+                                imgData.data[((imgData.width * y) + x) * 4 + 3] = 255;
+                            }
+                        }
+                        
+                    }
+                }
+
+                for (i = 0; i < imgData.width * imgData.height * 4; i += 4) {
+                    var r = imgData.data[i + 0];
+                    var g = imgData.data[i + 1];
+                    var b = imgData.data[i + 2];
+                    var a = imgData.data[i + 3];                
+                    if (a == 0) {
+                            imgData.data[i + 0] = imgBackgroundData.data[i + 0];
+                            imgData.data[i + 1] = imgBackgroundData.data[i + 1];
+                            imgData.data[i + 2] = imgBackgroundData.data[i + 2];
+                            imgData.data[i + 3] = imgBackgroundData.data[i + 3];
+                    }                   
+                }
+                context.putImageData(imgData, 0, 0);
+              
+            }
+        }      
+
+        function SupportedVideoFormat() {
+            var video = document.createElement("video"); 
+            if (video.canPlayType('video/ogg; codecs="theora, vorbis"')) {
+                // it can play (maybe)!
+                oggSupported = true;
+            }
+            if (video.canPlayType('video/mp4; codecs="avc1.42E01E, mp4a.40.2"')) {
+                // it can play (maybe)!
+                mp4Supported = true;
+            }
+            if (video.canPlayType('video/webm; codecs="vp8, vorbis"')) {
+                // it can play (maybe)!
+                webmSupported = true;
+            }
+        }
+
+        function StartBackground() {
+            SupportedVideoFormat();
+            if (oggSupported) {
+                videoExt = ".ogv";
+            }
+            if (webmSupported) {
+                videoExt = ".webm"
+            }
+            if (mp4Supported) {
+                videoExt = ".mp4";
+            }
+            loadBackgroundVideo();
+        }
+
+        function loadBackgroundVideo() {
+            var value = "";
+            var radioObj = document.getElementsByName("background");
+            if (!radioObj)
+                return "";
+            var radioLength = radioObj.length;
+            if (radioLength == undefined)
+                if (radioObj.checked)
+                    value= radioObj.value;
+                else
+                    value= "";
+            for (var i = 0; i < radioLength; i++) {
+                if (radioObj[i].checked) {
+                    value= radioObj[i].value;
+                }
+            }
+
+            //
+            var backgroundType= value.split("/");
+            if (backgroundType[0] == "videos") {
+                isBackgroundVideo = true;
+                var backgroundFileName = value + videoExt;
+                document.getElementById("backgroundvideo").style.display = "inline";
+                document.getElementById("backgroundimage").style.display = "none";
+                document.getElementById("videoBackgrounddata").src = backgroundFileName;
+                document.getElementById("videoBackgrounddata").loop = true
+                if (isPlaying)
+                    document.getElementById("videoBackgrounddata").play();
+            }
+            else {
+                isBackgroundVideo = false;
+                document.getElementById("backgroundvideo").style.display = "none";
+                document.getElementById("backgroundimage").style.display = "inline";
+                document.getElementById("imageBackgrounddata").src = value;
+            }
+        }
+
+</script>
+<style>
+    body
+    {
+        font-family:Verdana;
+        font-size:12px;        
+    }
+    h1
+    {
+        font-size:14px;
+        font-weight:bold;
+        
+    }
+    .clearfix:before,
+    .clearfix:after,
+    .row:before,
+    .row:after {
+      content: '\0020';
+      display: block;
+      overflow: hidden;
+      visibility: hidden;
+      width: 0;
+      height: 0; }
+    .row:after,
+    .clearfix:after {
+      clear: both; }
+    .row,
+    .clearfix {
+      zoom: 1; }
+      #output, #source, #backgroundvideo, #backgroundimage
+      {
+          float:left;
+          display:inline;
+          padding:4px 10px 4px 10px;
+      }
+      ul
+      {
+          padding:0;
+          margin:0;
+      }
+      li
+      {
+          list-style-type:none;
+
+      }
+      
+      #backgroundvideoselection, #videocontrols,#backgroundimageselection
+      {
+          float:left;
+          display:inline;
+          padding-right:40px;
+      }
+      video, canvas
+      {
+          border:1px solid #000;
+      }
+      #PlayPause
+      {
+          width:80px;
+      }
+      .instructions
+      {
+       max-width:400px;   
+      }
+</style>
+</head>
+<body onload="StartBackground();">
+<h1>HTML 5 Real time video chroma key (green screen)</h1>
+<p class="instructions">Click "Play" to start the video playing, you will see the keyed video rendered, in the canvas output area. You can select a different background to render, either video or a static image.</p>
+<div id="wrapper" class="clearfix">
+    <div id="output">
+        <p>Canvas output</p>
+        <canvas id="videoscreen" width="320" height="180" >
+            <p>Sorry your browser does not support HTML5</p>
+        </canvas>
+    </div>
+    <div id="source">
+        <p>Green Screen Video</p>
+        <video style="" id="videodata" loop="loop" preload="auto" width="320" height="180">
+            <source src="videos/Gav_green.mp4" type='video/mp4' />
+            <source src="videos/Gav_green.webm" type='video/webm' />
+            <source src="videos/Gav_green.ogv" type='video/ogg' />
+        </video>  
+    </div>
+    <div id="backgroundvideo">
+        <p>Background Video</p>
+        <video style="" id="videoBackgrounddata" loop="loop" preload="auto" width="320" height="180">
+        </video>
+    </div>
+        <div id="backgroundimage">
+        <p>Background Image</p>
+        <img id="imageBackgrounddata" />
+    </div>
+</div>
+
+<div id="wrapper2" class="clearfix">
+    <div id="backgroundvideoselection">
+    <p>Background video selection</p>
+    <ul>
+        <li><input type="radio" id="newrow" name="background" value="videos/NewRow" onclick="loadBackgroundVideo();" checked=checked /><label for="newrow">New Row Street</label></li>
+        <li><input type="radio" id="coventgarden" name="background" value="videos/CoventGardenPlaza" onclick="loadBackgroundVideo();" /><label for="coventgarden">Covent Garden Plaza</label></li>
+        <li><input type="radio" id="coventgarden2" name="background" value="videos/CoventGardenPlaza2" onclick="loadBackgroundVideo();" /><label for="coventgarden2">Covent Garden Plaza 2</label></li>
+        <li><input type="radio" id="office" name="background" value="videos/Office_01" onclick="loadBackgroundVideo();" /><label for="office">Office</label></li>
+        <li><input type="radio" id="wall" name="background" value="videos/wall" onclick="loadBackgroundVideo();" /><label for="wall">Wall</label></li>
+        <li><input type="radio" id="churchbenches" name="background" value="videos/churchbenches" onclick="loadBackgroundVideo();" /><label for="churchbenches">Church benches</label></li>
+    </ul>
+    </div>
+    <div id="backgroundimageselection">
+         <p>Background image selection</p>
+    <ul>
+        <li><input type="radio" id="bg1" name="background" value="images/background1.png" onclick="loadBackgroundVideo();" /><label for="bg1">Train station</label></li>
+        <li><input type="radio" id="bg2" name="background" value="images/background2.jpg" onclick="loadBackgroundVideo();" /><label for="bg2">Road junction</label></li>
+        <li><input type="radio" id="bg3" name="background" value="images/background3.jpg" onclick="loadBackgroundVideo();" /><label for="bg3">Building site</label></li>
+        <li><input type="radio" id="bg4" name="background" value="images/background4.jpg" onclick="loadBackgroundVideo();" /><label for="bg3">Drawing train station</label></li>
+        
+    </ul>
+    </div>
+    <div id="videocontrols">
+        <p>Video controls</p>
+        <input id="PlayPause" type="button" onclick="Play();" value="Play" />
+    </div>
+</div>
+</body>
+</html>
