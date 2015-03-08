@@ -1,11 +1,96 @@
+
+
+@font-face {
+    font-family: 'droid_sansbold';
+    src: url('../fonts/DroidSans-Bold-webfont.eot');
+    src: url('../fonts/DroidSans-Bold-webfont.eot?#iefix') format('embedded-opentype'),
+         url('../fonts/DroidSans-Bold-webfont.woff2') format('woff2'),
+         url('../fonts/DroidSans-Bold-webfont.woff') format('woff'),
+         url('../fonts/DroidSans-Bold-webfont.ttf') format('truetype'),
+         url('../fonts/DroidSans-Bold-webfont.svg#droid_sansbold') format('svg');
+    font-weight: normal;
+    font-style: normal;
+
+}
+@font-face {
+    font-family: 'merriweather_sansbold';
+    src: url('../fonts/merriweatherSans-bold-webfont.eot');
+    src: url('../fonts/merriweatherSans-bold-webfont.eot?#iefix') format('embedded-opentype'),
+         url('../fonts/merriweathersans-bold-webfont.woff2') format('woff2'),
+         url('../fonts/merriweatherSans-bold-webfont.woff') format('woff'),
+         url('../fonts/merriweatherSans-bold-webfont.ttf') format('truetype'),
+         url('../fonts/merriweathersans-bold-webfont.svg#merriweather_sansregular') format('svg');
+    font-weight: normal;
+    font-style: normal;
+
+}
+
 body {
-  font-family:Verdana;
-  font-size:12px;
+  font-family: "droid_sansbold", "Century Gothic", "Lucida Sans Unicode", "Lucida Grande", sans-serif;
+  font-size:20px;
+  background-color: #e32665;
 }
 
 h1 {
-  font-size:14px;
-  font-weight:bold;
+  text-align: center;
+  position: relative;
+  font-family: "merriweathersans-bold";
+  font-size: 75px;
+  color: white;
+  overflow: none;
+  margin-top: 20px;
+}
+ul {
+  padding:0;
+  margin:0;
+}
+
+li {
+  max-width: 400px;
+  text-align: center;
+  list-style: none;
+}
+h2 {
+  font-size: 24px;
+  padding: 15px;
+  margin-bottom: 80px;
+}
+video,
+canvas {
+  border:3px solid white;
+  padding: 25px;
+  max-width: inherit;
+}
+
+.instructions {
+  margin-top: 0px;
+  display: block;
+  margin-right: auto;
+  margin-left: auto;
+  max-width:400px;
+}
+.instructions li {
+    padding: 30px;
+}
+.intro {
+  height: 100vh;
+  width: 100%;
+  background-color: #e32665;
+  overflow: none;
+  padding:0;
+  margin:0;
+  border-bottom: 2px solid white;
+}
+.instruction-i {
+  display: block;
+  margin-right: auto;
+  margin-left: auto;
+  padding: 10px;
+}
+.clearfix {
+  max-width: 1400px;
+  margin-right: 6%;
+  margin-left: 6%;
 }
 
 .clearfix:before,
@@ -39,14 +124,6 @@ h1 {
   padding:4px 10px 4px 10px;
 }
 
-ul {
-  padding:0;
-  margin:0;
-}
-
-li {
-  list-style-type:none;
-}
 
 #backgroundvideoselection,
 #videocontrols,
@@ -54,19 +131,37 @@ li {
   float:left;
   display:inline;
   padding: 4%;
+  
 }
-
-video,
-canvas {
-  border:1px solid #000;
+#countdown {
+    font-size: 32px;
+    float: center;
+    text-align: center;
+    margin: 0 auto;
+    margin-top: 50px;
+    margin-bottom: 20px;
+    max-width: 400px;
 }
-
+#wrapper2 {
+    padding: 50px;
+    max-width: 900px;
+    margin: 0 auto;
+    margin-top: 20px;
+    height: 200px;
+}
 #PlayPause {
   width:80px;
 }
-
-.instructions {
- max-width:400px;
+#boothStart {
+    width: 180px;
+    height: 80px;
+    background :none;
+    font-size: 26px;
+    border: 6px solid white;
+}
+#boothStart:hover {
+  background-color: rgba(255, 255, 255, 0.4);
+  transition: all 0.6s ease-in-out;
 }
 
 #videoscreen {
@@ -76,4 +171,33 @@ canvas {
   -webkit-transform-origin: center center;
   -moz-transform-origin: center center;
   -ms-transform-origin: center center;
+}
+
+.sink {
+  display: inline;
+  -webkit-transition-duration: 0.5s;
+  transition-duration: 0.5s;
+  -webkit-transition-property: transform;
+  transition-property: transform;
+  -webkit-transform: translateZ(0);
+  transform: translateZ(0);
+}
+.sink:hover{
+  -webkit-transform: translateY(12px);
+  transform: translateY(12px);
+} 
+.grow {
+  -webkit-transform: translateZ(0);
+  transform: translateZ(0);
+  -webkit-backface-visibility: hidden;
+  backface-visibility: hidden;
+  -moz-osx-font-smoothing: grayscale;
+  -webkit-transition-duration: 0.3s;
+  transition-duration: 0.3s;
+  -webkit-transition-property: transform;
+  transition-property: transform;
+}
+.grow:hover, .grow:focus, .grow:active {
+  -webkit-transform: scale(1.1);
+  transform: scale(1.1);
 }
