@@ -205,18 +205,14 @@ function loadBackgroundVideo() {
 
   var backgroundType= value.split("/");
   if (backgroundType[0] == "videos") {
-  isBackgroundVideo = true;
-  var backgroundFileName = value + videoExt;
-  document.getElementById("backgroundvideo").style.display = "inline";
-  document.getElementById("backgroundimage").style.display = "none";
-  document.getElementById("videoBackgrounddata").src = backgroundFileName;
-  document.getElementById("videoBackgrounddata").loop = true;
-  if (isPlaying)
-    document.getElementById("videoBackgrounddata").play();
+    isBackgroundVideo = true;
+    var backgroundFileName = value + videoExt;
+    document.getElementById("videoBackgrounddata").src = backgroundFileName;
+    document.getElementById("videoBackgrounddata").loop = true;
+    if (isPlaying) document.getElementById("videoBackgrounddata").play();
   } else {
     isBackgroundVideo = false;
     document.getElementById("backgroundvideo").style.display = "none";
-    document.getElementById("backgroundimage").style.display = "inline";
     document.getElementById("imageBackgrounddata").src = value;
   }
 }
