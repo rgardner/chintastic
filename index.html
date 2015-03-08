@@ -49,14 +49,12 @@
     Your browser does not support the audio element.
     </audio>
 
-      <select id="select" size="4">
-          <option>Call me Maybe</option>
-          <option>Lazy Song</option>
-          <option>Single Ladies</option>
-          <option>Sweet Escape</option>
-    </select>
-
-    <button onclick="selectSong()">Play music.</button>
+    <div>
+        <input type="radio" id="s1" name="song" value="song-choice" onclick="alert('hey'); selectSong();">Call me maybe<br>
+        <input type="radio" id="s2" name="song" value="song-choice" onclick="selectSong()">Lazy Song<br>
+        <input type="radio" id="s3" name="song" value="song-choice" onclick="selectSong()">Single Ladies<br>
+        <input type="radio" id="s4" name="song" value="song-choice" onclick="selectSong()">Sweet Escape<br>
+    </div>
 </div>
 <div id="wrapper2" class="clearfix">
     <div id="backgroundvideoselection">

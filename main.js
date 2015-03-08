@@ -238,28 +238,40 @@ songList[3] = [
                 ];
 
 function selectSong() {
-   
-    alert("hello");
-    var x = document.getElementById("select").selectedIndex;
-    console.log(x);
+  console.log("x");
+/*    var x = document.getElementById("select").selectedIndex; 
+    console.log(x); */
     var theAudio = document.getElementById("audio1");
-    alert("hello!!!");
-    if (x == 0) {
-        /*theAudio.src = songList[0]; */
+    if (document.getElementById('s1').checked) {
+      theAudio.src = "audio/callmemaybe.ogg";
+       console.log("y");
+    }
+    else if (document.getElementById('s2').checked) {
+      theAudio.src = "audio/lazysong.ogg";
+    }
+    else if (document.getElementById('s3').checked) {
+      theAudio.src = "audio/single_ladies.ogg";
+    }
+    else if (document.getElementById('s4').checked) {
+      theAudio.src = "audio/sweet_escape.ogg";
+    }
+ /*   if (x == 0) {
+        /*theAudio.src = songList[0];
         theAudio.src = "audio/callmemaybe.ogg";
     }
     else if (x == 1) {
       theAudio.src = "audio/lazysong.ogg";
-     /*   theAudio.src = songList[1]; */
+       theAudio.src = songList[1];
    }
     else if (x == 2) {
       theAudio.src = "audio/single_ladies.ogg";
-       /* theAudio.src = songList[2]; */
+        theAudio.src = songList[2]; 
     }
     else if (x == 3) {
       theAudio.src = "audio/sweet_escape.ogg";
-      /*  theAudio.src = songList[3]; */
+      /*  theAudio.src = songList[3]; 
     }
-    console.log(theAudio.src);
+    console.log(theAudio.src); */
     theAudio.play();
+
 }
