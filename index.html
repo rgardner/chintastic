@@ -217,21 +217,22 @@
   <link href="main.css" rel="stylesheet">
 </head>
 <body onload="StartBackground();">
-  <h1>HTML 5 Real time video chroma key (green screen)</h1>
-  <p class="instructions">
-    Click "Play" to start the video playing, you will see the keyed video
-    rendered, in the canvas output area. You can select a different background
-    to render, either video or a static image.
-  </p>
+  <h1>Chintastic Photo Booth</h1>
+  <ol class="instructions">
+    <li>Select your song</li>
+    <li>Choose your background video or image</li>
+    <li>Click the Start button</li>
+    <li>Enjoy!</li>
+  </ol>
   <div id="wrapper" class="clearfix">
     <div id="output">
-        <p>Canvas output</p>
+        <p>Output</p>
         <canvas id="videoscreen" width="320" height="180">
           Sorry your browser does not support HTML5
         </canvas>
     </div>
     <div id="source">
-      <p>Green Screen Video</p>
+      <p>Original Video</p>
       <video style="" id="videodata" loop="loop" preload="auto" width="320" height="180">
         <source src="videos/video.mp4" type='video/mp4' />
         <source src="videos/video.webm" type='video/webm' />
@@ -243,11 +244,11 @@
         <video style="" id="videoBackgrounddata" loop="loop" preload="auto" width="320" height="180">
         </video>
     </div>
-        <div id="backgroundimage">
-        <p>Background Image</p>
-        <img id="imageBackgrounddata" alt="background image"/>
+    <div id="backgroundimage">
+      <p>Background Image</p>
+      <img id="imageBackgrounddata" alt="background image"/>
     </div>
-</div>
+  </div>
 
 <div id="wrapper2" class="clearfix">
     <div id="backgroundvideoselection">
@@ -265,7 +266,7 @@
     </div>
     <div id="videocontrols">
         <p>Video controls</p>
-        <button id="boothStart" onclick="Play();">Start photo booth...</button>
+        <button id="boothStart" onclick="Play();">Start</button>
     </div>
 </div>
 </body>
