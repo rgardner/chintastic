@@ -220,3 +220,50 @@ function loadBackgroundVideo() {
     document.getElementById("imageBackgrounddata").src = value;
   }
 }
+        /***** SONG STUFF **/
+            /***** SONG STUFF **/
+            /***** SONG STUFF **/
+            /***** SONG STUFF **/
+            var songList = new Array();
+
+            songList[0] = [
+                    "audio/callmemaybe.ogg"
+                    ];
+            songList[1] = [
+                    "audio/lazysong.ogg",
+                    "audio/lazysong.mp3"
+                    ];
+            songList[2] = [
+                    "audio/single_ladies.ogg",
+                    "audio/single_ladies.mp3"
+                    ];
+            songList[3] = [
+                    "audio/sweet_escape.ogg",
+                    "audio/sweet_escape.mp3"
+                    ];
+             songList[4] = [
+                    "audio/sweet_escape.ogg",
+                    "audio/sweet_escape.mp3"
+                    ];
+
+        function selectSong() {
+            console.log("lalalalalalala");
+            alert("hello");
+            var x = document.getElementById("select").length;
+            var theAudio = document.getElementById("audio1");
+            if (x == 0) {
+                theAudio.src = songList[0];
+            }
+            else if (x == 1) {
+                 theAudio.src = songList[1];
+            }
+            else if (x == 2) {
+                 theAudio.src = songList[2];
+            }
+            else if (x == 3) {
+                 theAudio.src = songList[3];
+            }
+            else if (x == 4) {
+                 theAudio.src = songList[4];
+            }
+         }
