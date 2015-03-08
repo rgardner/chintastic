@@ -27,15 +27,13 @@
 
 
         function Play() {
-            if (!isPlaying) {
-              document.getElementById("videodata").play();
-              document.getElementById("videoBackgrounddata").play();
-              var boothStartBtn = document.getElementById("boothStart");
-              if (boothStart.parentNode) {
-                boothStart.parentNode.removeChild(boothStart);
-              }
-              isPlaying = true;
+            document.getElementById("videodata").play();
+            document.getElementById("videoBackgrounddata").play();
+            var boothStartBtn = document.getElementById("boothStart");
+            if (boothStart.parentNode) {
+              boothStart.parentNode.removeChild(boothStart);
             }
+            isPlaying = true;
             draw();
         }
 
