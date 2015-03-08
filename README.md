@@ -1,4 +1,6 @@
 # Chintastic
+![Alt text](/images/chin_cover.jpg)
+
 ## Converting from `.mov` to `.ogv`
 ```
 brew install ffmpeg --with-theora --with-libvorbis
