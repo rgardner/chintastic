@@ -50,10 +50,11 @@ li {
 
 #backgroundvideoselection,
 #videocontrols,
-#backgroundimageselection {
+#backgroundimageselection, #audio-selection {
   float:left;
   display:inline;
-  padding-right:40px;
+  padding: 4%;
+  
 }
 
 video,
