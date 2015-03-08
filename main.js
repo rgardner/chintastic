@@ -129,6 +129,9 @@ function Start() {
 
   // Hide background preview.
   document.getElementById("backgroundvideo").style.display = "none";
+  document.getElementById("audio1").pause();
+  document.getElementById("audio1").currentTime = 0;
+
 
   // Start timer.
   count = 3;
@@ -142,6 +145,7 @@ function play() {
   document.getElementById("videodata").play();
   document.getElementById("videoBackgrounddata").play();
   startRecording();
+  document.getElementById("audio1").play();
   isPlaying = true;
   draw();
 }
