@@ -54,7 +54,6 @@ li {
   float:left;
   display:inline;
   padding: 4%;
-  
 }
 
 video,
@@ -70,12 +69,11 @@ canvas {
  max-width:400px;
 }
 
- #videodata
-    {
-        -webkit-transform: rotate(90deg);
-        -moz-transform: rotate(180deg);
-        -ms-transform: rotate(180deg);
-        -webkit-transform-origin: center center;
-        -moz-transform-origin: center center;
-        -ms-transform-origin: center center;
-    }
+#videoscreen {
+  -webkit-transform: rotate(90deg);
+  -moz-transform: rotate(180deg);
+  -ms-transform: rotate(180deg);
+  -webkit-transform-origin: center center;
+  -moz-transform-origin: center center;
+  -ms-transform-origin: center center;
+}

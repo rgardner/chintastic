@@ -9,8 +9,7 @@ var mediaRecorder;
 
 function CameraInit() {
   navigator.getUserMedia(mediaConstraints, onMediaInit, onMediaError);
-  
-};
+}
 
 //
 function onMediaInit(stream) {            
@@ -33,24 +32,19 @@ function onMediaInit(stream) {
     mediaRecorder.videoWidth  = 320;
     mediaRecorder.videoHeight = 240;
     mediaRecorder.ondataavailable = function(blob) {
-      var a = document.createElement('a');
-      a.target = '_blank';
-      a.innerHTML = 'Open Recorded Video No. ' + (index++) + ' (Size: ' + bytesToSize(blob.size) + ') Time Length: ' + getTimeLength(timeInterval);
-      a.href = URL.createObjectURL(blob);
-      //document.getElementById("videoBackgrounddata").src = a.href;
-      //document.getElementById("backgroundvideo").show();
-      videosContainer.appendChild(a);
-      videosContainer.appendChild(document.createElement('hr'));
+      var video = document.getElementById("videodata");
+      video.src = URL.createObjectURL(blob);
+      video.play();
     };
     console.log(mediaRecorder);
 
-    var timeInterval = 10 * 1000; //10 secs in milliseconds
+    var timeInterval = 60 * 1000; //10 secs in milliseconds
     timeInterval = parseInt(timeInterval);
     // get blob after specific time interval
     setTimeout(function() {
       video.pause();
       mediaRecorder.stop();
-    }, 10 * 1000);
+    }, timeInterval);
     mediaRecorder.start(timeInterval);
     console.log(videosContainer[0]);
 };
@@ -120,6 +114,10 @@ function handleTimer() {
   }
 }
 
+function inRange(x, lower, upper) {
+  return (x > lower) && (x < upper);
+}
+
 /**
  * Start the photo booth.
  */
@@ -183,10 +181,8 @@ function DrawVideoOnCanvas() {
       b = imgDataNormal.data[i + 2];
       a = imgDataNormal.data[i + 3];
       // compare rgb levels for green and set alphachannel to 0;
-      selectedR = 50;
-      selectedG = 150;
-      selectedB = 150;
-      if (r <= selectedR && b <= selectedB && g >= selectedG) {
+      if (inRange(r, 0, 50) && inRange(b, 0, 150) &&
+          inRange(g, 100, 240)) {
           a = 0;
       }
       if (a !== 0) {
