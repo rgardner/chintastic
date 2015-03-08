@@ -10,6 +10,9 @@ var isPlaying = false;
 var videoExt = "";
 var isBackgroundVideo = true;
 
+/**
+ * Draws animation frame based on browser.
+ */
 function draw() {
   if (window.requestAnimationFrame) window.requestAnimationFrame(draw);
   // IE implementation
@@ -23,7 +26,9 @@ function draw() {
   DrawVideoOnCanvas();
 }
 
-
+/**
+ * Start countdown timer.
+ */
 function handleTimer() {
   if (count === 0) {
     clearInterval(timer);
@@ -36,6 +41,9 @@ function handleTimer() {
   }
 }
 
+/**
+ * Start the photo booth.
+ */
 function Start() {
   // Remove start button.
   var boothStartBtn = document.getElementById("boothStart");
@@ -48,6 +56,9 @@ function Start() {
   timer = setInterval(function() { handleTimer(count); }, 1000);
 }
 
+/**
+ * Start recording video.
+ */
 function play() {
   document.getElementById("videodata").play();
   document.getElementById("videoBackgrounddata").play();
@@ -55,6 +66,9 @@ function play() {
   draw();
 }
 
+/**
+ * Apply green screen effects to canvas.
+ */
 function DrawVideoOnCanvas() {
   var object = document.getElementById("videodata");
 
@@ -161,22 +175,25 @@ function DrawVideoOnCanvas() {
   }
 }
 
+/**
+ * Determine supported video formats.
+ */
 function SupportedVideoFormat() {
   var video = document.createElement("video");
   if (video.canPlayType('video/ogg; codecs="theora, vorbis"')) {
-    // it can play (maybe)!
     oggSupported = true;
   }
   if (video.canPlayType('video/mp4; codecs="avc1.42E01E, mp4a.40.2"')) {
-    // it can play (maybe)!
     mp4Supported = true;
   }
   if (video.canPlayType('video/webm; codecs="vp8, vorbis"')) {
-    // it can play (maybe)!
     webmSupported = true;
   }
 }
 
+/**
+ * Start background video.
+ */
 function StartBackground() {
   SupportedVideoFormat();
   if (oggSupported) videoExt = ".ogv";
@@ -185,6 +202,9 @@ function StartBackground() {
   loadBackgroundVideo();
 }
 
+/**
+ * Load background videos into dom.
+ */
 function loadBackgroundVideo() {
   var value = "";
   var radioObj = document.getElementsByName("background");
@@ -199,8 +219,8 @@ function loadBackgroundVideo() {
   }
   for (var i = 0; i < radioLength; i++) {
     if (radioObj[i].checked) {
-    value = radioObj[i].value;
-  }
+      value = radioObj[i].value;
+    }
   }
 
   var backgroundType= value.split("/");
