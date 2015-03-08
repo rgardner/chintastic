@@ -230,10 +230,10 @@ function loadBackgroundVideo() {
   var backgroundType= value.split("/");
   if (backgroundType[0] == "videos") {
     isBackgroundVideo = true;
-    var backgroundFileName = value + videoExt;
-    document.getElementById("videoBackgrounddata").src = backgroundFileName;
-    document.getElementById("videoBackgrounddata").loop = true;
-    if (isPlaying) document.getElementById("videoBackgrounddata").play();
+    var bgVideo = document.getElementById("videoBackgrounddata");
+    bgVideo.src = value + videoExt;
+    bgVideo.loop = true;
+    document.getElementById("videoBackgrounddata").play();
   } else {
     isBackgroundVideo = false;
     document.getElementById("backgroundvideo").style.display = "none";
