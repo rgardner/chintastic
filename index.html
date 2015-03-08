@@ -16,6 +16,7 @@
     <li>Enjoy!</li>
   </ol>
   <p id="countdown">Waiting for you to start...</p>
+
   <div id="wrapper" class="clearfix">
     <div id="output">
         <p>Output</p>
@@ -32,28 +33,18 @@
       </video>
     </div>
     <div id="backgroundvideo">
-        <p>Background Video</p>
-        <video style="" id="videoBackgrounddata" loop="loop" preload="auto" width="320" height="180">
-        </video>
-    </div>
-    <div id="backgroundimage">
-      <p>Background Image</p>
-      <img id="imageBackgrounddata" alt="background image"/>
+      <p>Video Preview</p>
+      <video style="" id="videoBackgrounddata" loop="loop" preload="auto" width="320" height="180">
+      </video>
     </div>
   </div>
 
 <div id="wrapper2" class="clearfix">
     <div id="backgroundvideoselection">
-    <p>Background video selection</p>
-    <ul>
-        <li><input type="radio" id="newrow" name="background" value="videos/background1" onclick="loadBackgroundVideo();" checked=checked /><label for="newrow">Background Video 1</label></li>
-        <li><input type="radio" id="churchbenches" name="background" value="videos/background2" onclick="loadBackgroundVideo();" /><label for="churchbenches">Background Video 2</label></li>
-    </ul>
-    </div>
-    <div id="backgroundimageselection">
-       <p>Background image selection</p>
+      <p>Background video selection</p>
       <ul>
-        <li><input type="radio" id="bg1" name="background" value="images/background1.png" onclick="loadBackgroundVideo();" /><label for="bg1">Space</label></li>
+        <li><input type="radio" id="newrow" name="background" value="videos/background1" onclick="loadBackgroundVideo();" checked="checked" /><label for="newrow">Background Video 1</label></li>
+        <li><input type="radio" id="churchbenches" name="background" value="videos/background2" onclick="loadBackgroundVideo();" /><label for="churchbenches">Background Video 2</label></li>
       </ul>
     </div>
     <div id="videocontrols">
