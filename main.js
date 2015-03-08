@@ -1,3 +1,7 @@
+window.onload = function() {
+  StartBackground();
+};
+
 // Timer global variables.
 var count;
 var timer;
