@@ -23,8 +23,7 @@
             
             
             //
-            function onMediaSuccess(stream) {
-                setTimeout              
+            function onMediaSuccess(stream) {             
                 var video = document.createElement('video');
                 var videoWidth = 320;
                 var videoHeight = 240;
@@ -37,6 +36,7 @@
                 video.play();
                 videosContainer.appendChild(video);
                 videosContainer.appendChild(document.createElement('hr'));
+                
                 mediaRecorder = new MediaStreamRecorder(stream);
                 mediaRecorder.mimeType = 'video/webm'; // this line is mandatory
                 mediaRecorder.videoWidth  = videoWidth;
@@ -49,6 +49,7 @@
                     videosContainer.appendChild(a);
                     videosContainer.appendChild(document.createElement('hr'));
                 };
+                console.log(mediaRecorder);
                 
                 var timeInterval = 10 * 1000; //10 secs in milliseconds
                 timeInterval = parseInt(timeInterval);

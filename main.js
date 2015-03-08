@@ -4,49 +4,56 @@ window.onload = function() {
 };
 
 var mediaConstraints = { audio: !!navigator.mozGetUserMedia, video: true };
-var videosContainer = document.getElementById('source');
 var index = 1;
 var mediaRecorder;
 
 function CameraInit() {
-  navigator.getUserMedia(mediaConstraints, onMediaSuccess, onMediaError);
+  navigator.getUserMedia(mediaConstraints, onMediaInit, onMediaError);
   
 };
 
 //
-function onMediaSuccess(stream) {             
+function onMediaInit(stream) {            
   var video = document.getElementById('videodata');
-  var videoWidth = 320;
-  var videoHeight = 240;
-  video = mergeProps(video, {
-    controls: true,
-    width: videoWidth,
-    height: videoHeight,
-    src: URL.createObjectURL(stream)
-  });
-  video.play();
-  videosContainer.appendChild(video);
-  videosContainer.appendChild(document.createElement('hr'));
-  mediaRecorder = new MediaStreamRecorder(stream);
-    mediaRecorder.mimeType = 'video/webm'; // this line is mandatory
-    mediaRecorder.videoWidth  = videoWidth;
-    mediaRecorder.videoHeight = videoHeight;
-    mediaRecorder.ondataavailable = function(blob) {
-      var a = document.createElement('a');
-      a.target = '_blank';
-      a.innerHTML = 'Open Recorded Video No. ' + (index++) + ' (Size: ' + bytesToSize(blob.size) + ') Time Length: ' + getTimeLength(timeInterval);
-      a.href = URL.createObjectURL(blob);
-      videosContainer.appendChild(a);
-      videosContainer.appendChild(document.createElement('hr'));
-    };
 
-    // get blob after specific time interval
-    setTimeout(function() { 
-      video.pause();
-      mediaRecorder.stop();
-    }, 10 * 1000);
-    mediaRecorder.start(10 * 1000);
-  }
+  video.src = URL.createObjectURL(stream);
+  console.log(video);
+  video.height = 240;
+  video.width = 320;
+  video.autoplay = "true";
+
+  var videosContainer = document.getElementById('source');
+  document.querySelector('#start-recording').onclick = function() {
+    video.controls = "true";
+    videosContainer.appendChild(video);
+    videosContainer.appendChild(document.createElement('hr'));
+    mediaRecorder = new MediaStreamRecorder(stream);
+                mediaRecorder.mimeType = 'video/webm'; // this line is mandatory
+                mediaRecorder.videoWidth  = 320;
+                mediaRecorder.videoHeight = 240;
+                mediaRecorder.ondataavailable = function(blob) {
+                    var a = document.createElement('a');
+                    a.target = '_blank';
+                    a.innerHTML = 'Open Recorded Video No. ' + (index++) + ' (Size: ' + bytesToSize(blob.size) + ') Time Length: ' + getTimeLength(timeInterval);
+                    a.href = URL.createObjectURL(blob);
+                    videosContainer.appendChild(a);
+                    videosContainer.appendChild(document.createElement('hr'));
+                };
+                console.log(mediaRecorder);
+                
+                var timeInterval = 10 * 1000; //10 secs in milliseconds
+                timeInterval = parseInt(timeInterval);
+                // get blob after specific time interval
+                setTimeout(function() { 
+                  video.pause();
+                  mediaRecorder.stop();
+                }, 10 * 1000);
+                mediaRecorder.start(timeInterval);
+                console.log(videosContainer[0]);
+              };
+
+            }
+
 //
 function onMediaError(e) {
   console.error('media error', e);
@@ -120,9 +127,8 @@ function Start() {
     boothStart.parentNode.removeChild(boothStart);
   }
 
-  // Hide background preview and stop audio.
+  // Hide background preview.
   document.getElementById("backgroundvideo").style.display = "none";
-  document.getElementById("audio1").pause();
 
   // Start timer.
   count = 3;
@@ -135,8 +141,6 @@ function Start() {
 function play() {
   document.getElementById("videodata").play();
   document.getElementById("videoBackgrounddata").play();
-  document.getElementById("audio1").currentTime = 0;
-  document.getElementById("audio1").play();
   isPlaying = true;
   draw();
 }
@@ -329,15 +333,40 @@ songList[3] = [
                 ];
 
 function selectSong() {
-  var audio = document.getElementById("audio1");
-  if (document.getElementById('s1').checked) {
-    audio.src = "audio/callmemaybe.ogg";
-  } else if (document.getElementById('s2').checked) {
-    audio.src = "audio/lazysong.ogg";
-  } else if (document.getElementById('s3').checked) {
-    audio.src = "audio/single_ladies.ogg";
-  } else if (document.getElementById('s4').checked) {
-    audio.src = "audio/sweet_escape.ogg";
-  }
-  audio.play();
+  console.log("x");
+/*    var x = document.getElementById("select").selectedIndex; 
+    console.log(x); */
+    var theAudio = document.getElementById("audio1");
+    if (document.getElementById('s1').checked) {
+      theAudio.src = "audio/callmemaybe.ogg";
+       console.log("y");
+    }
+    else if (document.getElementById('s2').checked) {
+      theAudio.src = "audio/lazysong.ogg";
+    }
+    else if (document.getElementById('s3').checked) {
+      theAudio.src = "audio/single_ladies.ogg";
+    }
+    else if (document.getElementById('s4').checked) {
+      theAudio.src = "audio/sweet_escape.ogg";
+    }
+ /*   if (x == 0) {
+        /*theAudio.src = songList[0];
+        theAudio.src = "audio/callmemaybe.ogg";
+    }
+    else if (x == 1) {
+      theAudio.src = "audio/lazysong.ogg";
+       theAudio.src = songList[1];
+   }
+    else if (x == 2) {
+      theAudio.src = "audio/single_ladies.ogg";
+        theAudio.src = songList[2]; 
+    }
+    else if (x == 3) {
+      theAudio.src = "audio/sweet_escape.ogg";
+      /*  theAudio.src = songList[3]; 
+    }
+    console.log(theAudio.src); */
+    theAudio.play();
+
 }
