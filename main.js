@@ -220,43 +220,46 @@ function loadBackgroundVideo() {
     document.getElementById("imageBackgrounddata").src = value;
   }
 }
-        /***** SONG STUFF **/
-            /***** SONG STUFF **/
-            /***** SONG STUFF **/
-            /***** SONG STUFF **/
-            var songList = new Array();
+/***** SONG STUFF **/
+/***** SONG STUFF **/
+/***** SONG STUFF **/
+var songList = new Array();
+songList[0] = [
+                "audio/callmemaybe.ogg"
+                ];
+songList[1] = [
+                "audio/lazysong.ogg"
+                ];
+songList[2] = [
+                "audio/single_ladies.ogg"
+             ];
+songList[3] = [
+                "audio/sweet_escape.ogg"
+                ];
 
-            songList[0] = [
-                    "audio/callmemaybe.ogg"
-                    ];
-            songList[1] = [
-                    "audio/lazysong.ogg",
-                    "audio/lazysong.mp3"
-                    ];
-            songList[2] = [
-                    "audio/single_ladies.ogg",
-                    "audio/single_ladies.mp3"
-                    ];
-            songList[3] = [
-                    "audio/sweet_escape.ogg",
-                    "audio/sweet_escape.mp3"
-                    ];
-
-        function selectSong() {
-            console.log("lalalalalalala");
-            alert("hello");
-            var x = document.getElementById("select").length;
-            var theAudio = document.getElementById("audio1");
-            if (x == 0) {
-                theAudio.src = songList[0];
-            }
-            else if (x == 1) {
-                 theAudio.src = songList[1];
-            }
-            else if (x == 2) {
-                 theAudio.src = songList[2];
-            }
-            else if (x == 3) {
-                 theAudio.src = songList[3];
-            }
-         }
+function selectSong() {
+   
+    alert("hello");
+    var x = document.getElementById("select").selectedIndex;
+    console.log(x);
+    var theAudio = document.getElementById("audio1");
+    alert("hello!!!");
+    if (x == 0) {
+        /*theAudio.src = songList[0]; */
+        theAudio.src = "audio/callmemaybe.ogg";
+    }
+    else if (x == 1) {
+      theAudio.src = "audio/lazysong.ogg";
+     /*   theAudio.src = songList[1]; */
+   }
+    else if (x == 2) {
+      theAudio.src = "audio/single_ladies.ogg";
+       /* theAudio.src = songList[2]; */
+    }
+    else if (x == 3) {
+      theAudio.src = "audio/sweet_escape.ogg";
+      /*  theAudio.src = songList[3]; */
+    }
+    console.log(theAudio.src);
+    theAudio.play();
+}
