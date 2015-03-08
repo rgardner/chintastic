@@ -218,71 +218,8 @@
             }
         }
 
-</script>
-<style>
-    body
-    {
-        font-family:Verdana;
-        font-size:12px;        
-    }
-    h1
-    {
-        font-size:14px;
-        font-weight:bold;
-        
-    }
-    .clearfix:before,
-    .clearfix:after,
-    .row:before,
-    .row:after {
-      content: '\0020';
-      display: block;
-      overflow: hidden;
-      visibility: hidden;
-      width: 0;
-      height: 0; }
-    .row:after,
-    .clearfix:after {
-      clear: both; }
-    .row,
-    .clearfix {
-      zoom: 1; }
-      #output, #source, #backgroundvideo, #backgroundimage
-      {
-          float:left;
-          display:inline;
-          padding:4px 10px 4px 10px;
-      }
-      ul
-      {
-          padding:0;
-          margin:0;
-      }
-      li
-      {
-          list-style-type:none;
-
-      }
-      
-      #backgroundvideoselection, #videocontrols,#backgroundimageselection
-      {
-          float:left;
-          display:inline;
-          padding-right:40px;
-      }
-      video, canvas
-      {
-          border:1px solid #000;
-      }
-      #PlayPause
-      {
-          width:80px;
-      }
-      .instructions
-      {
-       max-width:400px;   
-      }
-</style>
+  </script>
+  <link href="main.css" rel="stylesheet">
 </head>
 <body onload="StartBackground();">
 <h1>HTML 5 Real time video chroma key (green screen)</h1>
@@ -318,21 +255,13 @@
     <p>Background video selection</p>
     <ul>
         <li><input type="radio" id="newrow" name="background" value="videos/NewRow" onclick="loadBackgroundVideo();" checked=checked /><label for="newrow">New Row Street</label></li>
-        <li><input type="radio" id="coventgarden" name="background" value="videos/CoventGardenPlaza" onclick="loadBackgroundVideo();" /><label for="coventgarden">Covent Garden Plaza</label></li>
-        <li><input type="radio" id="coventgarden2" name="background" value="videos/CoventGardenPlaza2" onclick="loadBackgroundVideo();" /><label for="coventgarden2">Covent Garden Plaza 2</label></li>
-        <li><input type="radio" id="office" name="background" value="videos/Office_01" onclick="loadBackgroundVideo();" /><label for="office">Office</label></li>
-        <li><input type="radio" id="wall" name="background" value="videos/wall" onclick="loadBackgroundVideo();" /><label for="wall">Wall</label></li>
         <li><input type="radio" id="churchbenches" name="background" value="videos/churchbenches" onclick="loadBackgroundVideo();" /><label for="churchbenches">Church benches</label></li>
     </ul>
     </div>
     <div id="backgroundimageselection">
          <p>Background image selection</p>
     <ul>
-        <li><input type="radio" id="bg1" name="background" value="images/background1.png" onclick="loadBackgroundVideo();" /><label for="bg1">Train station</label></li>
-        <li><input type="radio" id="bg2" name="background" value="images/background2.jpg" onclick="loadBackgroundVideo();" /><label for="bg2">Road junction</label></li>
-        <li><input type="radio" id="bg3" name="background" value="images/background3.jpg" onclick="loadBackgroundVideo();" /><label for="bg3">Building site</label></li>
-        <li><input type="radio" id="bg4" name="background" value="images/background4.jpg" onclick="loadBackgroundVideo();" /><label for="bg3">Drawing train station</label></li>
-        
+        <li><input type="radio" id="bg1" name="background" value="images/background1.png" onclick="loadBackgroundVideo();" /><label for="bg1">Space</label></li>
     </ul>
     </div>
     <div id="videocontrols">
