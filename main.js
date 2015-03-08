@@ -120,8 +120,9 @@ function Start() {
     boothStart.parentNode.removeChild(boothStart);
   }
 
-  // Hide background preview.
+  // Hide background preview and stop audio.
   document.getElementById("backgroundvideo").style.display = "none";
+  document.getElementById("audio1").pause();
 
   // Start timer.
   count = 3;
@@ -134,6 +135,8 @@ function Start() {
 function play() {
   document.getElementById("videodata").play();
   document.getElementById("videoBackgrounddata").play();
+  document.getElementById("audio1").currentTime = 0;
+  document.getElementById("audio1").play();
   isPlaying = true;
   draw();
 }
@@ -326,40 +329,15 @@ songList[3] = [
                 ];
 
 function selectSong() {
-  console.log("x");
-/*    var x = document.getElementById("select").selectedIndex; 
-    console.log(x); */
-    var theAudio = document.getElementById("audio1");
-    if (document.getElementById('s1').checked) {
-      theAudio.src = "audio/callmemaybe.ogg";
-       console.log("y");
-    }
-    else if (document.getElementById('s2').checked) {
-      theAudio.src = "audio/lazysong.ogg";
-    }
-    else if (document.getElementById('s3').checked) {
-      theAudio.src = "audio/single_ladies.ogg";
-    }
-    else if (document.getElementById('s4').checked) {
-      theAudio.src = "audio/sweet_escape.ogg";
-    }
- /*   if (x == 0) {
-        /*theAudio.src = songList[0];
-        theAudio.src = "audio/callmemaybe.ogg";
-    }
-    else if (x == 1) {
-      theAudio.src = "audio/lazysong.ogg";
-       theAudio.src = songList[1];
-   }
-    else if (x == 2) {
-      theAudio.src = "audio/single_ladies.ogg";
-        theAudio.src = songList[2]; 
-    }
-    else if (x == 3) {
-      theAudio.src = "audio/sweet_escape.ogg";
-      /*  theAudio.src = songList[3]; 
-    }
-    console.log(theAudio.src); */
-    theAudio.play();
-
+  var audio = document.getElementById("audio1");
+  if (document.getElementById('s1').checked) {
+    audio.src = "audio/callmemaybe.ogg";
+  } else if (document.getElementById('s2').checked) {
+    audio.src = "audio/lazysong.ogg";
+  } else if (document.getElementById('s3').checked) {
+    audio.src = "audio/single_ladies.ogg";
+  } else if (document.getElementById('s4').checked) {
+    audio.src = "audio/sweet_escape.ogg";
+  }
+  audio.play();
 }
