@@ -28,16 +28,13 @@
 
         function Play() {
             if (!isPlaying) {
-                document.getElementById("videodata").play();
-                document.getElementById("videoBackgrounddata").play();
-                document.getElementById("PlayPause").value = "Pause";
-                isPlaying = true;               
-            }
-            else {
-                document.getElementById("videodata").pause();
-                document.getElementById("videoBackgrounddata").pause();
-                document.getElementById("PlayPause").value = "Play";
-                isPlaying = false;                
+              document.getElementById("videodata").play();
+              document.getElementById("videoBackgrounddata").play();
+              var boothStartBtn = document.getElementById("boothStart");
+              if (boothStart.parentNode) {
+                boothStart.parentNode.removeChild(boothStart);
+              }
+              isPlaying = true;
             }
             draw();
         }
@@ -268,7 +265,7 @@
     </div>
     <div id="videocontrols">
         <p>Video controls</p>
-        <input id="PlayPause" type="button" onclick="Play();" value="Play" />
+        <button id="boothStart" onclick="Play();">Start photo booth...</button>
     </div>
 </div>
 </body>
