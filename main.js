@@ -3,7 +3,7 @@ window.onload = function() {
   CameraInit();
 };
 
-var mediaConstraints = { audio: !!navigator.mozGetUserMedia, video: true };
+var mediaConstraints = { video: true };
 var index = 1;
 var mediaRecorder;
 var video;
