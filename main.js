@@ -55,6 +55,9 @@ function Start() {
     boothStart.parentNode.removeChild(boothStart);
   }
 
+  // Hide background preview.
+  document.getElementById("backgroundvideo").style.display = "none";
+
   // Start timer.
   count = 3;
   timer = setInterval(function() { handleTimer(count); }, 1000);
