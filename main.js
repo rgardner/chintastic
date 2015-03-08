@@ -1,6 +1,71 @@
 window.onload = function() {
   StartBackground();
+  CameraInit();
 };
+
+var mediaConstraints = { audio: !!navigator.mozGetUserMedia, video: true };
+var videosContainer = document.getElementById('source');
+var index = 1;
+var mediaRecorder;
+
+function CameraInit() {
+  navigator.getUserMedia(mediaConstraints, onMediaSuccess, onMediaError);
+  
+};
+
+//
+function onMediaSuccess(stream) {             
+  var video = document.getElementById('videodata');
+  var videoWidth = 320;
+  var videoHeight = 240;
+  video = mergeProps(video, {
+    controls: true,
+    width: videoWidth,
+    height: videoHeight,
+    src: URL.createObjectURL(stream)
+  });
+  video.play();
+  videosContainer.appendChild(video);
+  videosContainer.appendChild(document.createElement('hr'));
+  mediaRecorder = new MediaStreamRecorder(stream);
+    mediaRecorder.mimeType = 'video/webm'; // this line is mandatory
+    mediaRecorder.videoWidth  = videoWidth;
+    mediaRecorder.videoHeight = videoHeight;
+    mediaRecorder.ondataavailable = function(blob) {
+      var a = document.createElement('a');
+      a.target = '_blank';
+      a.innerHTML = 'Open Recorded Video No. ' + (index++) + ' (Size: ' + bytesToSize(blob.size) + ') Time Length: ' + getTimeLength(timeInterval);
+      a.href = URL.createObjectURL(blob);
+      videosContainer.appendChild(a);
+      videosContainer.appendChild(document.createElement('hr'));
+    };
+
+    // get blob after specific time interval
+    setTimeout(function() { 
+      video.pause();
+      mediaRecorder.stop();
+    }, 10 * 1000);
+    mediaRecorder.start(10 * 1000);
+  }
+//
+function onMediaError(e) {
+  console.error('media error', e);
+}
+
+// below function via: http://goo.gl/B3ae8c
+function bytesToSize(bytes) {
+ var k = 1000;
+ var sizes = ['Bytes', 'KB', 'MB', 'GB', 'TB'];
+ if (bytes === 0) return '0 Bytes';
+ var i = parseInt(Math.floor(Math.log(bytes) / Math.log(k)),10);
+ return (bytes / Math.pow(k, i)).toPrecision(3) + ' ' + sizes[i];
+}
+
+// below function via: http://goo.gl/6QNDcI
+function getTimeLength(milliseconds) {
+  var data = new Date(milliseconds);
+  return data.getUTCHours()+" hours, "+data.getUTCMinutes()+" minutes and "+data.getUTCSeconds()+" second(s)";
+}
 
 // Timer global variables.
 var count;
