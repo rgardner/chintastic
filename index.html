@@ -9,24 +9,28 @@
   <script src="main.js"></script>
 </head>
 <body>
-  <h1>Chintastic Photo Booth</h1>
-  <ol class="instructions">
-    <li>Select your song</li>
-    <li>Choose your background video or image</li>
-    <li>Click the Start button</li>
-    <li>Enjoy!</li>
-  </ol>
+  <h1><span class="sink">Chin</span>tastic Photo Booth</h1>
+  <div class="intro">
+      <ol class="instructions">
+        <li>Select your song.</li>
+        <img class="instruction-i grow" src="images/sound.png"/>
+        <li>Choose your background video or image.</li>
+        <img class="instruction-i grow" src="images/photography.png"/>
+        <li>Click the Start button!</li>
+        <img class="instruction-i grow" src="images/start.png"/>
+      </ol>
+  </div>
   <p id="countdown">Waiting for you to start...</p>
 
   <div id="wrapper" class="clearfix">
     <div id="output">
-        <p>Output</p>
+        <h2>Output</h2>
         <canvas id="videoscreen" width="320" height="180">
           Sorry your browser does not support HTML5
         </canvas>
     </div>
     <div id="source">
-      <p>Original Video</p>
+      <h2>Original Video</h2>
       <div id="video_source"></div>
       <video style="" id="videodata" loop="loop" width="320" height="180">
         <!-- <source src="videos/video.mp4" type='video/mp4' />
@@ -35,14 +39,14 @@
       </video>
     </div>
     <div id="backgroundvideo">
-      <p>Background Preview</p>
+      <h2>Background Preview</h2>
       <video style="" id="videoBackgrounddata" loop="loop" preload="auto" width="320" height="180">
       </video>
     </div>
   </div>
   <div id="wrapper2" class="clearfix">
     <div id="audio-selection">
-      <p>Audio selection</p>
+      <h2>Audio selection</h2>
       <audio id="audio1">
         Your browser does not support the audio element.
         <source src="audio/single_ladies.ogg" type="audio/ogg">
@@ -61,14 +65,14 @@
      </label><br/>
     </div>
     <div id="backgroundvideoselection">
-      <p>Background video selection</p>
+      <h3>Background video selection</h3>
       <ul>
         <li><input type="radio" id="newrow" name="background" value="videos/background1" onclick="loadBackgroundVideo();" checked="checked" /><label for="newrow">Background Video 1</label></li>
         <li><input type="radio" id="churchbenches" name="background" value="videos/background2" onclick="loadBackgroundVideo();" /><label for="churchbenches">Background Video 2</label></li>
       </ul>
     </div>
     <div id="videocontrols">
-      <p>Video controls</p>
+      <h3>Video controls</h3>
       <button id="boothStart" onclick="Start();">Start</button>
     </div>
   </div>
