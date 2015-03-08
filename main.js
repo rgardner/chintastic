@@ -241,10 +241,6 @@ function loadBackgroundVideo() {
                     "audio/sweet_escape.ogg",
                     "audio/sweet_escape.mp3"
                     ];
-             songList[4] = [
-                    "audio/sweet_escape.ogg",
-                    "audio/sweet_escape.mp3"
-                    ];
 
         function selectSong() {
             console.log("lalalalalalala");
@@ -262,8 +258,5 @@ function loadBackgroundVideo() {
             }
             else if (x == 3) {
                  theAudio.src = songList[3];
-            }
-            else if (x == 4) {
-                 theAudio.src = songList[4];
             }
          }
