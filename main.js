@@ -6,49 +6,48 @@ window.onload = function() {
 var mediaConstraints = { audio: !!navigator.mozGetUserMedia, video: true };
 var index = 1;
 var mediaRecorder;
+var video;
+var stream;
 
 function CameraInit() {
   navigator.getUserMedia(mediaConstraints, onMediaInit, onMediaError);
 }
 
-//
-function onMediaInit(stream) {            
-  var video = document.getElementById('videodata');
+function startRecording() {
+  var videosContainer = document.getElementById("source");
+  videosContainer.appendChild(video);
+  videosContainer.appendChild(document.createElement('hr'));
+  video.play();
+  mediaRecorder = new MediaStreamRecorder(stream);
+  mediaRecorder.mimeType = 'video/webm'; // this line is mandatory
+  mediaRecorder.videoWidth  = 320;
+  mediaRecorder.videoHeight = 240;
+  mediaRecorder.ondataavailable = function(blob) {
+    var video = document.getElementById("videodata");
+    video.src = URL.createObjectURL(blob);
+    video.play();
+  };
+  console.log(mediaRecorder);
 
-  video.src = URL.createObjectURL(stream);
+  var timeInterval = 10 * 1000;
+  timeInterval = parseInt(timeInterval);
+  // get blob after specific time interval
+  setTimeout(function() {
+    video.pause();
+    mediaRecorder.stop();
+  }, timeInterval);
+  mediaRecorder.start(timeInterval);
+}
+
+//
+function onMediaInit(Stream) {
+  video = document.getElementById('videodata');
+  video.src = URL.createObjectURL(Stream);
   console.log(video);
   video.height = 240;
   video.width = 320;
   video.autoplay = "true";
-
-  var videosContainer = document.getElementById('source');
-  document.querySelector('#start-recording').onclick = function() {
-    video.controls = "true";
-    videosContainer.appendChild(video);
-    videosContainer.appendChild(document.createElement('hr'));
-    video.play();
-    mediaRecorder = new MediaStreamRecorder(stream);
-    mediaRecorder.mimeType = 'video/webm'; // this line is mandatory
-    mediaRecorder.videoWidth  = 320;
-    mediaRecorder.videoHeight = 240;
-    mediaRecorder.ondataavailable = function(blob) {
-      var video = document.getElementById("videodata");
-      video.src = URL.createObjectURL(blob);
-      video.play();
-    };
-    console.log(mediaRecorder);
-
-    var timeInterval = 60 * 1000; //10 secs in milliseconds
-    timeInterval = parseInt(timeInterval);
-    // get blob after specific time interval
-    setTimeout(function() {
-      video.pause();
-      mediaRecorder.stop();
-    }, timeInterval);
-    mediaRecorder.start(timeInterval);
-    console.log(videosContainer[0]);
-};
-
+  stream = Stream;
 }
 
 //
@@ -142,6 +141,7 @@ function Start() {
 function play() {
   document.getElementById("videodata").play();
   document.getElementById("videoBackgrounddata").play();
+  startRecording();
   isPlaying = true;
   draw();
 }
