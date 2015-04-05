@@ -185,7 +185,7 @@ function DrawVideoOnCanvas() {
       b = imgDataNormal.data[i + 2];
       a = imgDataNormal.data[i + 3];
       // compare rgb levels for green and set alphachannel to 0;
-      if (inRange(r, 0, 50) && inRange(b, 0, 150) &&
+      if (inRange(r, 0, 100) && inRange(b, 0, 150) &&
           inRange(g, 100, 240)) {
           a = 0;
       }
