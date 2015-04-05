@@ -201,3 +201,7 @@ canvas {
   -webkit-transform: scale(1.1);
   transform: scale(1.1);
 }
+
+.demos {
+  float: right;
+}
